@@ -1,0 +1,6 @@
+db.posts.find()
+db.posts.insert({"post":"Doing well "})
+db.posts.insert({"post":"Hello again "})
+db.posts.insert({"post":"Hi There!"})
+use dulun_db
+show dbs

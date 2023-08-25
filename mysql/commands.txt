@@ -1,0 +1,30 @@
+## exaple commands for default network bridge
+
+START MYSQL SERVER WITH CUSTOM ROOT PASSWORD
+docker run \ 
+    -e MYSQL_ROOT_PASSWORD=dulun-password \ 
+    mysql
+
+START PHPMYADMIN WITH PMA_HOST VARIABLE (over IP address)
+docker run \ 
+    -p 8080:80 \
+    -e PMA_HOST=172.17.0.2 \
+    phpmyadmin
+
+## exaple commands for custom network bridge
+## create custome network
+docker network create dulun
+
+START MYSQL SERVER WITH CUSTOM ROOT PASSWORD
+docker run \
+    --network dulun \
+    --name mysql \
+    -e MYSQL_ROOT_PASSWORD=dulun-password \ 
+    -d mysql
+
+START PHPMYADMIN WITH PMA_HOST VARIABLE (over DNS names -- name of the container)
+docker run \
+    --network dulun \
+    -p 8080:80 \
+    -e PMA_HOST=mysql \
+    -d phpmyadmin

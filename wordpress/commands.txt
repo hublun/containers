@@ -1,0 +1,31 @@
+docker pull mysql:5.7
+docker pull wordpress:5.4
+
+## exaple commands for custom network bridge
+## create custome network
+docker network create dulun
+
+START MYSQL SERVER WITH CUSTOM ROOT PASSWORD
+docker run \
+    --network dulun \
+    --name mysql \
+    -e MYSQL_ROOT_PASSWORD=dulun-password \
+    -e MYSQL_DATABASE=wordpress \
+    -e MYSQL_USER=wordpress \
+    -e MYSQL_PASSWORD=wordpress \ 
+    -d mysql:5.7
+
+START WORDPRESS SERVER
+docker run \
+    --network dulun \
+    --name wordpress \
+    -p 8080:80 \ 
+    -d wordpress:5.4
+
+START PHPMYADMIN WITH PMA_HOST VARIABLE (over DNS names -- name of the container)
+docker run \
+    --network dulun \
+    --name phpadmin \
+    -p 8081:80 \
+    -e PMA_HOST=mysql \
+    -d phpmyadmin
