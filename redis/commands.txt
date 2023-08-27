@@ -1,0 +1,11 @@
+docker run \
+    --name redis \
+    --network dulun \
+    -d redis
+
+docker run \
+    --name redis-commander \
+    --network dulun \
+    -p 8081:8081 \
+    -e REDIS_HOST=redis \
+    -d rediscommander/redis-commander
